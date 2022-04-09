@@ -17,7 +17,7 @@ public interface ICodeWritter
 ## Solution
 Solution by [Wilson Neto][1]
 
-This is my solution for this problem, a simple and first revision solution that do what need to be done.
+This is my solution for this problem, a simple and first revision solution that does what needs to be done.
 
 Images:
 

@@ -1,4 +1,4 @@
-# Challenges - Code Comments Remover
+# Challenge - Code Comments Remover
 
 The challenge is to write a code that removes comments from a piece of code, you can write the code you want but you need to use these two interfaces below:
 
@@ -21,7 +21,7 @@ This is my solution for this problem, a simple and first revision solution that 
 
 Images:
 
-![image](https://user-images.githubusercontent.com/20674439/162590062-89a4e604-4650-4f7c-b2e3-186ce997c919.png)
+<img width="600" src="https://user-images.githubusercontent.com/20674439/162590062-89a4e604-4650-4f7c-b2e3-186ce997c919.png" />
 
 ![image](https://user-images.githubusercontent.com/20674439/162590079-0ab483e2-aa75-45dd-9de4-f805b1ed8520.png)
 

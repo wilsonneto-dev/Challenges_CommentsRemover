@@ -37,7 +37,7 @@ Images:
 
 | [<img src="https://github.com/wilsonneto-dev.png" width="75px;"/>][1] |
 | :-: |
-|[Creator][1]|
+|[Wilson Neto][1]|
 
 
 [1]: https://www.twitch.tv/wilsonnetodev

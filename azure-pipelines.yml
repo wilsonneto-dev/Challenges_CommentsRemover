@@ -15,7 +15,7 @@ steps:
     inputs:
       command: 'test'
       projects: '**/Challenges.CommentsRemover.UnitTests.csproj'
-      arguments: '--configuration ${{variables.buildConfiguration}} --collect "XPlat Code coverage"'
+      arguments: ' --collect "XPlat Code coverage"'
       testRunTitle: 'Unit Tests'
       
   - script: |

@@ -10,8 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*.UnitTests.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: Unit Tests
+    inputs:
+      command: 'test'
+      projects: '**/*.UnitTests.csproj'
+      arguments: '--configuration ${{variables.buildConfiguration}} --collect "XPlat Code coverage"'
+      testRunTitle: 'Unit Tests'
+      
+  - script: |
+      dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8
+      reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
+    displayName: 'ReportGenerator tool'
 
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: Cobertura  
+      summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'

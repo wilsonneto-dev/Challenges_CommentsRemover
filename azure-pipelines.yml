@@ -33,5 +33,5 @@ steps:
       checkCoverage: true
       coverageFailOption: 'fixed'
       coverageType: 'lines'
-      coverageThreshold: '90'
+      coverageThreshold: '70'
       runTitle: 'Checking Coverage'

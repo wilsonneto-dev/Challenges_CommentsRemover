@@ -22,15 +22,16 @@ steps:
       reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
     displayName: 'ReportGenerator tool'
 
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: Cobertura  
+      summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
+      
   - task: BuildQualityChecks@8
     inputs:
       checkCoverage: true
       coverageFailOption: 'fixed'
       coverageType: 'lines'
       coverageThreshold: '90'
-
-  - task: PublishCodeCoverageResults@1
-    displayName: 'Publish code coverage'
-    inputs:
-      codeCoverageTool: Cobertura  
-      summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
+      runTitle: 'Checking Coverage'

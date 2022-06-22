@@ -50,6 +50,20 @@ stages:
       #     coverageType: 'lines'
       #     coverageThreshold: '70'
       #     runTitle: 'Checking Coverage'
+      
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'Sonar Comments Remover'
+          organization: 'wilsonnetodevops'
+          scannerMode: 'MSBuild'
+          projectKey: 'commentsremoversonar'
+          projectName: 'Comments Remover'
+
+      - task: SonarCloudAnalyze@1
+
+      - task: SonarCloudPublish@1
+        inputs:
+          pollingTimeoutSec: '300'
         
 - stage: CheckCoverage
   displayName: Checking Coverage

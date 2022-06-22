@@ -35,3 +35,11 @@ steps:
       coverageType: 'lines'
       coverageThreshold: '70'
       runTitle: 'Checking Coverage'
+
+  - script: |
+      dotnet tool install --global CheckCoverage --version 1.0.0
+    displayName: 'Install check'  
+
+  - script: |
+      checkcoverage
+    displayName: 'CheckCoverage'

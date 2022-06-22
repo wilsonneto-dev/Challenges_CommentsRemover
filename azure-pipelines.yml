@@ -44,8 +44,8 @@ stages:
           coverageThreshold: '70'
           runTitle: 'Checking Coverage'
         
-- stage: BuildAndValidations
-  displayName: Build do App em Nextjs
+- stage: CheckCoverage
+  displayName: Checking Coverage
   jobs:
   - job: BuildAndTest
     displayName: Build and Test

@@ -33,6 +33,13 @@ stages:
           projects: '**/Challenges.CommentsRemover.UnitTests.csproj'
           arguments: ' --collect "XPlat Code coverage"'
           testRunTitle: 'Unit Tests'
+      
+      # - task: DotNetCoreCLI@2
+      #   displayName: Test
+      #   inputs:
+      #     command: test
+      #     projects: '**/*.sln'
+      #     arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
           
       - script: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8

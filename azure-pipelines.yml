@@ -18,6 +18,14 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'Sonar Comments Remover'
+          organization: 'wilsonnetodevops'
+          scannerMode: 'MSBuild'
+          projectKey: 'commentsremoversonar'
+          projectName: 'Comments Remover'
+
       - task: DotNetCoreCLI@2
         displayName: Unit Tests
         inputs:
@@ -51,14 +59,6 @@ stages:
       #     coverageThreshold: '70'
       #     runTitle: 'Checking Coverage'
       
-      - task: SonarCloudPrepare@1
-        inputs:
-          SonarCloud: 'Sonar Comments Remover'
-          organization: 'wilsonnetodevops'
-          scannerMode: 'MSBuild'
-          projectKey: 'commentsremoversonar'
-          projectName: 'Comments Remover'
-
       - task: SonarCloudAnalyze@1
 
       - task: SonarCloudPublish@1

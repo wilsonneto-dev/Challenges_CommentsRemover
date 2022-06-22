@@ -25,6 +25,10 @@ stages:
           scannerMode: 'MSBuild'
           projectKey: 'commentsremoversonar'
           projectName: 'Comments Remover'
+          extraProperties: |
+            sonar.exclusions=**/obj/**,**/*.dll
+            sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
+            sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
       - task: DotNetCoreCLI@2
         displayName: Unit Tests
@@ -34,12 +38,12 @@ stages:
           arguments: ' --collect "XPlat Code coverage"'
           testRunTitle: 'Unit Tests'
       
-      # - task: DotNetCoreCLI@2
-      #   displayName: Test
-      #   inputs:
-      #     command: test
-      #     projects: '**/*.sln'
-      #     arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
+      - task: DotNetCoreCLI@2
+        displayName: Test
+        inputs:
+          command: test
+          projects: '**/*.sln'
+          arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
           
       - script: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8

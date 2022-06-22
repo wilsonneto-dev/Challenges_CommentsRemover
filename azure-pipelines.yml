@@ -10,7 +10,7 @@ variables:
 
 stages:
 - stage: BuildAndValidations
-  displayName: Build do App em Nextjs
+  displayName: Build e Testes
   jobs:
   - job: BuildAndTest
     displayName: Build and Test
@@ -35,25 +35,41 @@ stages:
         inputs:
           codeCoverageTool: Cobertura  
           summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
-          
-      - task: BuildQualityChecks@8
+      
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Coverage Summary Artifact
         inputs:
-          checkCoverage: true
-          coverageFailOption: 'fixed'
-          coverageType: 'lines'
-          coverageThreshold: '70'
-          runTitle: 'Checking Coverage'
+          targetPath: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml' 
+          artifactName: CoverageSummary
+
+      # - task: BuildQualityChecks@8
+      #   inputs:
+      #     checkCoverage: true
+      #     coverageFailOption: 'fixed'
+      #     coverageType: 'lines'
+      #     coverageThreshold: '70'
+      #     runTitle: 'Checking Coverage'
         
 - stage: CheckCoverage
   displayName: Checking Coverage
   jobs:
-  - job: BuildAndTest
-    displayName: Build and Test
+  - job: Check
+    displayName: Checking Coverage
     pool:
       vmImage: $(vmImageName)
     steps:
-    - script: dotnet tool install --global CheckCoverage --version 1.0.0
+    - task: DownloadPipelineArtifact@2
+      displayName: Download do Artifact
+      inputs:
+        buildType: 'current'
+        artifactName: CoverageSummary
+        targetPath: '$(System.DefaultWorkingDirectory)/'
+
+    - script: ls
+      displayName: 'ls'  
+
+    - script: dotnet tool install --global CheckCoverage --version 1.0.1
       displayName: 'Install check'  
 
-    - script: checkcoverage
+    - script: checkcoverage "$(System.DefaultWorkingDirectory)/Cobertura.xml" 0.9
       displayName: 'CheckCoverage'
